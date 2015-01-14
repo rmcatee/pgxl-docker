@@ -19,6 +19,7 @@ echo "LC_ALL=fr_FR.UTF-8" >> ~/.pgxl
 
 ### PGXL
 
+
 cd /tmp
 git clone https://github.com/postmind-net/postgres-xl.git pgxl --depth 1
 cd /tmp/pgxl
@@ -30,6 +31,15 @@ cd /tmp/pgxl
 sudo make install
 cd /tmp/pgxl/contrib
 sudo make install
+
+### postgis 
+cd /tmp
+wget http://download.osgeo.org/postgis/source/postgis-2.0.6.tar.gz
+tar xvzf postgis-2.0.6.tar.gz 
+cd postgis-2.0.6 
+./configure -with-pgconfig=/opt/pgxl/bin/pg_config
+sudo make 
+make install 
 
 echo "export PATH=/opt/pgxl/bin:$PATH" >> ~/.pgxl
 echo "export PGDATA=/pom/pgxc" >> ~/.pgxl
