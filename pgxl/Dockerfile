@@ -22,6 +22,7 @@ RUN apt-get install -y pgxnclient
 RUN apt-get install build-essential
 RUN apt-get install libxml2-dev
 RUN apt-get install libgeos-dev
+RUN apt-get install libproj-dev 
 ### LOCALE
 
 RUN apt-get install -y locales
