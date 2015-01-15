@@ -19,12 +19,12 @@ RUN apt-get install -y curl flex bison zlib1g-dev libreadline6-dev gcc make supe
                     openssh-server openssh-client rsync
 RUN apt-get install -y python-dev
 RUN apt-get install -y pgxnclient
-RUN apt-get install build-essential
-RUN apt-get install libxml2-dev
-RUN apt-get install libgeos-dev
-RUN apt-get install libproj-dev 
-RUN apt-get install gdal-bin
-RUN apt-get install libgdal-dev
+RUN apt-get install -y build-essential
+RUN apt-get install -y libxml2-dev
+RUN apt-get install -y libgeos-dev
+RUN apt-get install -y libproj-dev 
+RUN apt-get install -y gdal-bin
+RUN apt-get install -y libgdal-dev
 ### LOCALE
 
 RUN apt-get install -y locales
