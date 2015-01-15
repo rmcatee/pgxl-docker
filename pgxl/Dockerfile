@@ -19,7 +19,9 @@ RUN apt-get install -y curl flex bison zlib1g-dev libreadline6-dev gcc make supe
                     openssh-server openssh-client rsync
 RUN apt-get install -y python-dev
 RUN apt-get install -y pgxnclient
-
+RUN apt-get install build-essential
+RUN apt-get install libxml2-dev
+RUN apt-get install libgeos-dev
 ### LOCALE
 
 RUN apt-get install -y locales
@@ -44,14 +46,25 @@ RUN make install
 WORKDIR /root/pgxl/contrib
 RUN make install
 
+#postgis
+WORKDIR /root/pgxl
+RUN wget http://download.osgeo.org/postgis/source/postgis-2.0.6.tar.gz
+RUN tar xvzf postgis-2.0.6.tar.gz
+WORKDIR /root/pgxl/postgis-2.0.6.tar.gz
+RUN ./configure --with-pgconfig=/opt/pgxl/bin/pg_config
+RUN make
+RUN make install
+
 ENV PATH /opt/pgxl/bin:$PATH
 ENV PGDATA /pom/pgxc
 
 ### PG EXTENSIONS
 
 RUN pgxnclient install json_enhancements
-
 RUN sudo apt-get install -y haproxy
+
+
+
 
 ### LD
 
@@ -69,6 +82,7 @@ COPY etc/environment /etc/environment
 ### SSH
 RUN echo "   StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 RUN sudo /etc/init.d/ssh start && sudo /etc/init.d/ssh stop
+
 
 ### USER
 
