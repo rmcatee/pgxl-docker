@@ -51,12 +51,12 @@ RUN make install
 
 #postgis
 WORKDIR /root/pgxl
-RUN wget http://download.osgeo.org/postgis/source/postgis-2.0.6.tar.gz
-RUN tar xvzf postgis-2.0.6.tar.gz
-WORKDIR /root/pgxl/postgis-2.0.6.tar.gz
+RUN wget http://download.osgeo.org/postgis/source/postgis-2.1.5.tar.gz
+RUN tar xvzf postgis-2.1.5.tar.gz
+WORKDIR /root/pgxl/postgis-2.1.5.tar.gz
 RUN ./configure --with-pgconfig=/opt/pgxl/bin/pg_config
-RUN make
-RUN make install
+RUN make -j 4
+RUN make install -j 4
 
 ENV PATH /opt/pgxl/bin:$PATH
 ENV PGDATA /pom/pgxc
