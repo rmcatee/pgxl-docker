@@ -24,6 +24,7 @@ RUN apt-get install libxml2-dev
 RUN apt-get install libgeos-dev
 RUN apt-get install libproj-dev 
 RUN apt-get install gdal-bin
+RUN apt-get install libgdal-dev
 ### LOCALE
 
 RUN apt-get install -y locales
