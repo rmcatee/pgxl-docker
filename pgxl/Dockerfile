@@ -23,6 +23,7 @@ RUN apt-get install build-essential
 RUN apt-get install libxml2-dev
 RUN apt-get install libgeos-dev
 RUN apt-get install libproj-dev 
+RUN apt-get install gdal-bin
 ### LOCALE
 
 RUN apt-get install -y locales
