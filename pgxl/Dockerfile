@@ -65,6 +65,9 @@ WORKDIR /tmp/postgis-2.1.5
 RUN ./configure --with-pgconfig=/opt/pgxl/bin/pg_config
 RUN make -j 4
 RUN make install -j 4
+
+WORKDIR /root/pgxl/contrib
+
 ENV PATH /opt/pgxl/bin:$PATH
 ENV PGDATA /pom/pgxc
 
