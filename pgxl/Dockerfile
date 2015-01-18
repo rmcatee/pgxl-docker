@@ -10,7 +10,6 @@ RUN adduser pom sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 ### BASE PACKAGES
-
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y screen cmake vim
@@ -19,12 +18,20 @@ RUN apt-get install -y curl flex bison zlib1g-dev libreadline6-dev gcc make supe
                     openssh-server openssh-client rsync
 RUN apt-get install -y python-dev
 RUN apt-get install -y pgxnclient
-RUN apt-get install -y build-essential
 RUN apt-get install -y libxml2-dev
 RUN apt-get install -y libgeos-dev
-RUN apt-get install -y libproj-dev 
+RUN apt-get install -y libproj-dev
 RUN apt-get install -y gdal-bin
-RUN apt-get install -y libgdal-dev
+RUN apt-get install -y build-essential
+
+WORKDIR /tmp
+RUN wget http://download.osgeo.org/gdal/1.11.0/gdal-1.11.0.tar.gz
+RUN tar xvfz gdal-1.11.0.tar.gz
+WORKDIR /tmp/gdal-1.11.0
+RUN ./configure --with-python
+RUN make -j 4
+RUN make install -j 4
+
 ### LOCALE
 
 RUN apt-get install -y locales
@@ -50,14 +57,14 @@ WORKDIR /root/pgxl/contrib
 RUN make install
 
 #postgis
-WORKDIR /root/pgxl
+
+WORKDIR /tmp
 RUN wget http://download.osgeo.org/postgis/source/postgis-2.1.5.tar.gz
 RUN tar xvzf postgis-2.1.5.tar.gz
-WORKDIR /root/pgxl/postgis-2.1.5.tar.gz
+WORKDIR /tmp/postgis-2.1.5
 RUN ./configure --with-pgconfig=/opt/pgxl/bin/pg_config
 RUN make -j 4
 RUN make install -j 4
-
 ENV PATH /opt/pgxl/bin:$PATH
 ENV PGDATA /pom/pgxc
 
